@@ -1,0 +1,27 @@
+{
+  "name": "vue_intensive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gulp-copy": "gulp copy-html",
+    "gulp-build": "gulp build-js",
+    "gulp-sass": "gulp build-sass",
+    "gulp-api": "gulp copy-api"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "sass": "^1.42.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.0.0"
+  }
+}
