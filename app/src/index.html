@@ -13,7 +13,7 @@
         <button v-on:click="createPage">Создать машину</button>
 
         <div v-for="page in pageList">
-            <h1>{{ page }}</h1>
+            <h1>{{ page }} <a href="#" v-on:click="deletePage(page)">(X)</a></h1>
         </div>
     </div>
 
