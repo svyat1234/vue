@@ -1,4 +1,6 @@
-const Editor = require("./editor")
+const Editor = require("./editor");
+const Vue = require("vue");
+const UIkit = require("uikit");
 
 window.editor = new Editor()
 
@@ -6,6 +8,15 @@ window.onload = () => {
     window.editor.open("index.html");
 }
 
+
+new Vue({
+    el: "#app",
+    methods: {
+        onBtnSave() {
+            console.log("fdsf")
+        }
+    }
+})
 
 
 
