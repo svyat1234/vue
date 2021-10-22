@@ -7,9 +7,7 @@
     <title>hello</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-    
+<body>    
 
 <iframe src="" frameborder="0"></iframe>
 <!--     
@@ -24,9 +22,26 @@
 
     <div id="app">
         <div class="panel">
-            <button class="uk-button uk-button-primary" uk-toggle="target: #modal-save">Опубликовать</button>
+            <div class="">
+                <button class="uk-button uk-button-secondary" uk-toggle="target: #modal-open">Открыть другую страницу</button>
+            </div>
+            <div class="">
+                <button class="uk-button uk-button-primary" uk-toggle="target: #modal-save">Опубликовать</button>
+            </div>
         </div>
         <!-- /.panel -->
+        <div id="modal-open" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Выберете страницу, которую хотите открыть</h2>
+                <ul class="uk-list uk-list-striped">
+                    <li v-for="page in pageList"><a class="uk-link-muted uk-modal-close" href="#" v-on:click="openPage(page)">{{ page }}</a></li>
+                </ul>
+                <!-- /.uk-list uk-list-decimal -->
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">Отмена</button>
+                </p>
+            </div>
+        </div>
         <div id="modal-save" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Публикация</h2>

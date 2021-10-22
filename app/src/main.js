@@ -1,4 +1,5 @@
 const Editor = require("./editor");
+const axios = require("axios");
 const Vue = require("vue");
 const UIkit = require("uikit");
 
@@ -10,7 +11,8 @@ window.editor = new Editor()
 new Vue({
     el: "#app",
     data: {
-        showLoader: true
+        showLoader: true,
+        pageList: []
     },
     methods: {
         onBtnSave() {
@@ -24,12 +26,24 @@ new Vue({
                 this.showLoader = false;
                 UIkit.notification({message: 'Ошибка при сохранении.', status: 'danger'})
             });
+        },
+        openPage(page) {
+            this.showLoader = true;
+            window.editor.open(page, () => {
+                this.showLoader = false;
+            });
         }
     }, 
     created() {
         window.editor.open("index.html", () => {
             this.showLoader = false;
         });
+        axios
+            .get("./api/pageList.php")
+            .then((res) => {
+                this.pageList = res.data;
+                console.log(this.pageList);
+        })
     }
 })
 
