@@ -4,17 +4,32 @@ const UIkit = require("uikit");
 
 window.editor = new Editor()
 
-window.onload = () => {
-    window.editor.open("index.html");
-}
+
 
 
 new Vue({
     el: "#app",
+    data: {
+        showLoader: true
+    },
     methods: {
         onBtnSave() {
-            console.log("fdsf")
+            this.showLoader = true;
+            window.editor.save(
+            () => {
+                this.showLoader = false;
+                UIkit.notification({message: 'Изменения успешно сохранены!', status: 'success'})
+            },
+            () => {
+                this.showLoader = false;
+                UIkit.notification({message: 'Ошибка при сохранении.', status: 'danger'})
+            });
         }
+    }, 
+    created() {
+        window.editor.open("index.html", () => {
+            this.showLoader = false;
+        });
     }
 })
 

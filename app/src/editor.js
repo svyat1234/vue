@@ -10,10 +10,10 @@ module.exports = class Editor {
         this.iframe = document.querySelector("iframe");
     }
 
-    open(page) {
+    open(page, cb) {
         this.currentPage = page;
         axios
-            .get("../" + page)
+            .get("../" + page +"?rnd" + Math.random())
             .then((res) => DOMHelper.parseStrToDom(res.data))
             .then(DOMHelper.wrapTextNodes)
             .then((dom) => {
@@ -25,6 +25,7 @@ module.exports = class Editor {
             .then(() => this.iframe.load("../temp.html"))
             .then(() => this.enableEditing())
             .then(() => this.injectStyles())
+            .then(cb)
     }
 
 
@@ -40,11 +41,11 @@ module.exports = class Editor {
         const style = this.iframe.contentDocument.createElement("style");
         style.innerHTML = `
             text-editor:hover {
-                outline: 3px solid orange;
+                outline: 3px solid lightblue;
                 outline-offset: 8px;
             }
             text-editor:focus {
-                outline: 3px solid red;
+                outline: 3px solid blue;
                 outline-offset: 8px;
             }
         `;
@@ -52,11 +53,13 @@ module.exports = class Editor {
     }
 
 
-    save() {
+    save(onSucces, onError) {
         const newDom = DOMHelper.virtualDom.cloneNode(  DOMHelper.virtualDom);
         DOMHelper.unwrapTextNodes(newDom);
         const html = DOMHelper.serializeDomToStr(newDom);
         axios.post("./api/savePage.php", { pageName: this.currentPage, html})
+        .then(onSucces)
+        .catch(onError)
     }
 }
 
